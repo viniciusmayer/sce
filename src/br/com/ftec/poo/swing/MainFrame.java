@@ -14,6 +14,7 @@ import javax.swing.JPanel;
 public class MainFrame implements ActionListener {
 
     private JPanel cards;
+    private ListarUsuariosTableModel listarUsuariosTableModel;
 
     private final static String PRIMEIRA_TELA = "primeira_tela";
     private final static String CRIAR_USUARIO = "criar_usuario";
@@ -21,9 +22,10 @@ public class MainFrame implements ActionListener {
 
     public void buildContainer(Container container) {
         this.cards = new JPanel(new CardLayout());
+        this.listarUsuariosTableModel = new ListarUsuariosTableModel();
 
         JPanel criarUsuario = new CriarUsuarioPanel();
-        JPanel listarUsuarios = new ListarUsuariosPanel();
+        JPanel listarUsuarios = new ListarUsuariosPanel(this.listarUsuariosTableModel);
         JPanel primeiraTela = new JPanel();
 
         this.cards.add(primeiraTela, PRIMEIRA_TELA);
@@ -33,15 +35,24 @@ public class MainFrame implements ActionListener {
         container.add(this.cards, BorderLayout.CENTER);
     }
 
+    @Override
+    public void actionPerformed(ActionEvent actionEvent) {
+        CardLayout cardLayout = (CardLayout) this.cards.getLayout();
+        cardLayout.show(this.cards, actionEvent.getActionCommand());
+        this.listarUsuariosTableModel.fireTableDataChanged();
+    }
+
     public JMenuBar getMenuBar() {
-        JMenuItem sobre = new JMenuItem();
-        JMenuItem sair = new JMenuItem();
-        JMenu arquivo = new JMenu();
-        JMenu ajuda = new JMenu();
+    	JMenuBar menuBar = new JMenuBar();
+
+    	JMenu arquivo = new JMenu();
+    	JMenuItem voltar = new JMenuItem();
         JMenuItem criar = new JMenuItem();
         JMenuItem listar = new JMenuItem();
-        JMenuItem voltar = new JMenuItem();
-        JMenuBar menuBar = new JMenuBar();
+        JMenuItem sair = new JMenuItem();
+        
+        JMenu ajuda = new JMenu();
+        JMenuItem sobre = new JMenuItem();
 
         arquivo.setMnemonic('f');
         arquivo.setText("Arquivo");
@@ -82,11 +93,5 @@ public class MainFrame implements ActionListener {
 
         menuBar.add(ajuda);
         return menuBar;
-    }
-
-    @Override
-    public void actionPerformed(ActionEvent actionEvent) {
-        CardLayout cardLayout = (CardLayout) this.cards.getLayout();
-        cardLayout.show(this.cards, actionEvent.getActionCommand());
     }
 }

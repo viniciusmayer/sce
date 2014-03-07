@@ -15,9 +15,10 @@ public class Main {
 
                 MainFrame mainFrame = new MainFrame();
                 mainFrame.buildContainer(jFrame.getContentPane());
+                
                 JMenuBar jMenuBar = mainFrame.getMenuBar();
-
                 jFrame.setJMenuBar(jMenuBar);
+                
                 jFrame.pack();
                 jFrame.setVisible(true);
             }
