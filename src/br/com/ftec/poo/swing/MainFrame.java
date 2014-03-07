@@ -13,70 +13,80 @@ import javax.swing.JPanel;
 
 public class MainFrame implements ActionListener {
 
-	private JPanel cards;
+    private JPanel cards;
 
-	private final static String PRIMEIRA_TELA = "primeira_tela";
-	private final static String CRIAR_USUARIO = "criar_usuario";
+    private final static String PRIMEIRA_TELA = "primeira_tela";
+    private final static String CRIAR_USUARIO = "criar_usuario";
+    private final static String LISTAR_USUARIOS = "listar_usuarios";
 
-	public void buildContainer(Container container) {
-		this.cards = new JPanel(new CardLayout());
+    public void buildContainer(Container container) {
+        this.cards = new JPanel(new CardLayout());
 
-		JPanel criarUsuario = new CriarUsuarioPanel();
-		JPanel primeiraTela = new JPanel();
+        JPanel criarUsuario = new CriarUsuarioPanel();
+        JPanel listarUsuarios = new ListarUsuariosPanel();
+        JPanel primeiraTela = new JPanel();
 
-		this.cards.add(primeiraTela, PRIMEIRA_TELA);
-		this.cards.add(criarUsuario, CRIAR_USUARIO);
+        this.cards.add(primeiraTela, PRIMEIRA_TELA);
+        this.cards.add(criarUsuario, CRIAR_USUARIO);
+        this.cards.add(listarUsuarios, LISTAR_USUARIOS);
 
-		container.add(this.cards, BorderLayout.CENTER);
-	}
+        container.add(this.cards, BorderLayout.CENTER);
+    }
 
-	public JMenuBar getMenuBar() {
-		JMenuItem sobre = new JMenuItem();
-		JMenuItem sair = new JMenuItem();
-		JMenu arquivo = new JMenu();
-		JMenu ajuda = new JMenu();
-		JMenuItem criar = new JMenuItem();
-		JMenuItem voltar = new JMenuItem();
-		JMenuBar menuBar = new JMenuBar();
+    public JMenuBar getMenuBar() {
+        JMenuItem sobre = new JMenuItem();
+        JMenuItem sair = new JMenuItem();
+        JMenu arquivo = new JMenu();
+        JMenu ajuda = new JMenu();
+        JMenuItem criar = new JMenuItem();
+        JMenuItem listar = new JMenuItem();
+        JMenuItem voltar = new JMenuItem();
+        JMenuBar menuBar = new JMenuBar();
 
-		arquivo.setMnemonic('f');
-		arquivo.setText("Arquivo");
+        arquivo.setMnemonic('f');
+        arquivo.setText("Arquivo");
 
-		voltar.setText("Voltar");
-		voltar.setActionCommand(PRIMEIRA_TELA);
-		voltar.addActionListener(this);
-		arquivo.add(voltar);
+        voltar.setText("Voltar");
+        voltar.setActionCommand(PRIMEIRA_TELA);
+        voltar.addActionListener(this);
+        arquivo.add(voltar);
 
-		criar.setText("Criar");
-		criar.setActionCommand(CRIAR_USUARIO);
-		criar.addActionListener(this);
-		arquivo.add(criar);
+        criar.setText("Criar");
+        criar.setActionCommand(CRIAR_USUARIO);
+        criar.addActionListener(this);
+        arquivo.add(criar);
 
-		sair.setMnemonic('x');
-		sair.setText("Sair");
-		sair.addActionListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(java.awt.event.ActionEvent evt) {
-				System.exit(0);
-			}
-		});
-		arquivo.add(sair);
+        listar.setText("Listar");
+        listar.setActionCommand(LISTAR_USUARIOS);
+        listar.addActionListener(this);
+        arquivo.add(listar);
 
-		menuBar.add(arquivo);
+        sair.setMnemonic('x');
+        sair.setText("Sair");
+        sair.addActionListener(new java.awt.event.ActionListener() {
+            @Override
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                System.exit(0);
+            }
+        });
+        arquivo.add(sair);
 
-		ajuda.setMnemonic('h');
-		ajuda.setText("Ajuda");
+        menuBar.add(arquivo);
 
-		sobre.setMnemonic('a');
-		sobre.setText("Sobre");
-		ajuda.add(sobre);
+        ajuda.setMnemonic('h');
+        ajuda.setText("Ajuda");
 
-		menuBar.add(ajuda);
-		return menuBar;
-	}
+        sobre.setMnemonic('a');
+        sobre.setText("Sobre");
+        ajuda.add(sobre);
 
-	@Override
-	public void actionPerformed(ActionEvent actionEvent) {
-		CardLayout cardLayout = (CardLayout) (this.cards.getLayout());
-		cardLayout.show(this.cards, (String) actionEvent.getActionCommand());
-	}
+        menuBar.add(ajuda);
+        return menuBar;
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent actionEvent) {
+        CardLayout cardLayout = (CardLayout) this.cards.getLayout();
+        cardLayout.show(this.cards, actionEvent.getActionCommand());
+    }
 }
