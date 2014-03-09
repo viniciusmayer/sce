@@ -1,5 +1,8 @@
 package br.com.ftec.poo.swing;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.GroupLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -26,7 +29,6 @@ public class CriarUsuarioPanel extends JPanel {
 
 	// <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
 	private void initComponents() {
-
 		this.jTextField1 = new JTextField();
 		this.jTextField2 = new JTextField();
 		this.jLabel1 = new JLabel();
@@ -38,8 +40,8 @@ public class CriarUsuarioPanel extends JPanel {
 		this.jLabel2.setText("Senha");
 
 		this.jButton1.setText("Salvar");
-		this.jButton1.addActionListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(java.awt.event.ActionEvent evt) {
+		this.jButton1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
 				jButton1ActionPerformed(evt);
 			}
 		});
@@ -80,7 +82,7 @@ public class CriarUsuarioPanel extends JPanel {
 						.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
 	}// </editor-fold>//GEN-END:initComponents
 
-	private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jButton1ActionPerformed
+	private void jButton1ActionPerformed(ActionEvent evt) {// GEN-FIRST:event_jButton1ActionPerformed
 		String email = this.jTextField1.getText();
 		String senha = this.jTextField2.getText();
 

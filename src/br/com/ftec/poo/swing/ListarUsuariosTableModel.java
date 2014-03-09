@@ -15,13 +15,18 @@ public class ListarUsuariosTableModel extends AbstractTableModel {
     }
 
     @Override
+    public Class getColumnClass(int columnIndex) {
+        return this.getValueAt(0, columnIndex).getClass();
+    }
+    
+    @Override
     public int getRowCount() {
         return this.usuarios.size();
     }
 
     @Override
     public int getColumnCount() {
-        return 3;
+        return 4;
     }
 
     @Override
@@ -33,6 +38,8 @@ public class ListarUsuariosTableModel extends AbstractTableModel {
                 return "Email";
             case 2:
                 return "Senha";
+            case 3:
+        		return "Deletar?";
             default:
                 return "-";
         }
@@ -48,8 +55,20 @@ public class ListarUsuariosTableModel extends AbstractTableModel {
                 return usuario.getEmail();
             case 2:
                 return usuario.getSenha();
+            case 3:
+                return usuario.getSelected();
             default:
                 return "-";
         }
+    }
+    
+    @Override
+    public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
+		this.usuarios.get(rowIndex).setSelected((Boolean)aValue);
+    }
+    
+    @Override
+    public boolean isCellEditable(int rowIndex, int columnIndex) {
+    	return (columnIndex > 2);
     }
 }

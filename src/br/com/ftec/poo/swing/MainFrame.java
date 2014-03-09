@@ -74,9 +74,9 @@ public class MainFrame implements ActionListener {
 
         sair.setMnemonic('x');
         sair.setText("Sair");
-        sair.addActionListener(new java.awt.event.ActionListener() {
+        sair.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+            public void actionPerformed(ActionEvent evt) {
                 System.exit(0);
             }
         });

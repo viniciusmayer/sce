@@ -30,4 +30,14 @@ public class UsuarioDAO {
     public void add(Usuario usuario){
         this.usuarios.add(usuario);
     }
+
+	public void deletar() {
+		List<Usuario> deletar = new ArrayList<>();
+		for (Usuario usuario : this.usuarios) {
+			if (usuario.getSelected()){
+				deletar.add(usuario);
+			}
+		}
+		this.usuarios.removeAll(deletar);
+	}
 }
