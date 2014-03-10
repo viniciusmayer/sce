@@ -55,10 +55,10 @@ public class ListarUsuariosPanel extends JPanel{
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-    	int showConfirmDialog = JOptionPane.showConfirmDialog(this, "Confirma a exclusão do registro?");
-    	    	
-    	UsuarioDAO.getInstance().deletar();
-        this.listarUsuariosTableModel.fireTableDataChanged();
-    	
+    	int showConfirmDialog = JOptionPane.showConfirmDialog(this, "Confirma a exclusão do registro?", "Confirmar", JOptionPane.YES_NO_OPTION);
+        if (JOptionPane.YES_OPTION == showConfirmDialog){
+            UsuarioDAO.getInstance().deletar();
+            this.listarUsuariosTableModel.fireTableDataChanged();
+        }    	
     }//GEN-LAST:event_jButton2ActionPerformed
 }

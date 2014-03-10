@@ -88,5 +88,8 @@ public class CriarUsuarioPanel extends JPanel {
 
 		UsuarioDAO.getInstance().add(new Usuario(email, senha));
 		JOptionPane.showMessageDialog(this, "Usuario '" + email + "' salvo com sucesso.");
+                
+                this.jTextField1.setEditable(false);
+                this.jTextField2.setEditable(false);
 	}// GEN-LAST:event_jButton1ActionPerformed
 }
