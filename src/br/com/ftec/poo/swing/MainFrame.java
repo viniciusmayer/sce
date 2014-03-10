@@ -15,22 +15,21 @@ public class MainFrame implements ActionListener {
 
     private JPanel cards;
     private ListarUsuariosTableModel listarUsuariosTableModel;
-
-    private final static String PRIMEIRA_TELA = "primeira_tela";
-    private final static String CRIAR_USUARIO = "criar_usuario";
-    private final static String LISTAR_USUARIOS = "listar_usuarios";
+    private CriarUsuarioPanel criarUsuario;
+    private JPanel listarUsuarios;
+    private JPanel primeiraTela;
 
     public void buildContainer(Container container) {
         this.cards = new JPanel(new CardLayout());
         this.listarUsuariosTableModel = new ListarUsuariosTableModel();
 
-        JPanel criarUsuario = new CriarUsuarioPanel();
-        JPanel listarUsuarios = new ListarUsuariosPanel(this.listarUsuariosTableModel);
-        JPanel primeiraTela = new JPanel();
+        this.criarUsuario = new CriarUsuarioPanel();
+        this.listarUsuarios = new ListarUsuariosPanel(this.listarUsuariosTableModel);
+        this.primeiraTela = new JPanel();
 
-        this.cards.add(primeiraTela, PRIMEIRA_TELA);
-        this.cards.add(criarUsuario, CRIAR_USUARIO);
-        this.cards.add(listarUsuarios, LISTAR_USUARIOS);
+        this.cards.add(this.primeiraTela, CardsEnum.PRIMEIRA_TELA.getActionCommand());
+        this.cards.add(this.criarUsuario, CardsEnum.CRIAR_USUARIO.getActionCommand());
+        this.cards.add(this.listarUsuarios, CardsEnum.LISTAR_USUARIOS.getActionCommand());
 
         container.add(this.cards, BorderLayout.CENTER);
     }
@@ -38,8 +37,22 @@ public class MainFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent actionEvent) {
         CardLayout cardLayout = (CardLayout) this.cards.getLayout();
-        cardLayout.show(this.cards, actionEvent.getActionCommand());
-        this.listarUsuariosTableModel.fireTableDataChanged();
+        String actionCommand = actionEvent.getActionCommand();
+        CardsEnum card = CardsEnum.getFromActionCommand(actionCommand);
+        
+        switch (card) {
+		case CRIAR_USUARIO:
+			this.criarUsuario.limparCampos();
+			break;
+		case LISTAR_USUARIOS:
+			this.listarUsuariosTableModel.fireTableDataChanged();
+			break;
+		case PRIMEIRA_TELA:	
+		default:
+			break;
+		}
+        
+		cardLayout.show(this.cards, actionCommand);
     }
 
     public JMenuBar getMenuBar() {
@@ -58,17 +71,17 @@ public class MainFrame implements ActionListener {
         arquivo.setText("Arquivo");
 
         voltar.setText("Voltar");
-        voltar.setActionCommand(PRIMEIRA_TELA);
+        voltar.setActionCommand(CardsEnum.PRIMEIRA_TELA.getActionCommand());
         voltar.addActionListener(this);
         arquivo.add(voltar);
 
         criar.setText("Criar");
-        criar.setActionCommand(CRIAR_USUARIO);
+        criar.setActionCommand(CardsEnum.CRIAR_USUARIO.getActionCommand());
         criar.addActionListener(this);
         arquivo.add(criar);
 
         listar.setText("Listar");
-        listar.setActionCommand(LISTAR_USUARIOS);
+        listar.setActionCommand(CardsEnum.LISTAR_USUARIOS.getActionCommand());
         listar.addActionListener(this);
         arquivo.add(listar);
 

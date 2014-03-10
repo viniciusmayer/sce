@@ -8,6 +8,7 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle;
 
@@ -17,7 +18,7 @@ public class CriarUsuarioPanel extends JPanel {
 
 	// Variables declaration - do not modify//GEN-BEGIN:variables
 	private JTextField jTextField1;
-	private JTextField jTextField2;
+	private JPasswordField jTextField2;
 	private JButton jButton1;
 	private JLabel jLabel1;
 	private JLabel jLabel2;
@@ -30,7 +31,7 @@ public class CriarUsuarioPanel extends JPanel {
 	// <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
 	private void initComponents() {
 		this.jTextField1 = new JTextField();
-		this.jTextField2 = new JTextField();
+		this.jTextField2 = new JPasswordField();
 		this.jLabel1 = new JLabel();
 		this.jLabel2 = new JLabel();
 		this.jButton1 = new JButton();
@@ -84,12 +85,27 @@ public class CriarUsuarioPanel extends JPanel {
 
 	private void jButton1ActionPerformed(ActionEvent evt) {// GEN-FIRST:event_jButton1ActionPerformed
 		String email = this.jTextField1.getText();
-		String senha = this.jTextField2.getText();
+		String senha = String.valueOf(this.jTextField2.getPassword());
+		
+		boolean emailValido = email != null && !email.trim().isEmpty();
+		boolean senhaValida = senha != null && !senha.isEmpty();
+		if (!emailValido || !senhaValida){
+			JOptionPane.showMessageDialog(this, "Preencha os campos email e senha.");
+			return;
+		}
 
 		UsuarioDAO.getInstance().add(new Usuario(email, senha));
 		JOptionPane.showMessageDialog(this, "Usuario '" + email + "' salvo com sucesso.");
                 
-                this.jTextField1.setEditable(false);
-                this.jTextField2.setEditable(false);
+        this.jTextField1.setEditable(false);
+        this.jTextField2.setEditable(false);
 	}// GEN-LAST:event_jButton1ActionPerformed
+	
+	public void limparCampos(){
+		this.jTextField1.setText("");
+		this.jTextField1.setEditable(true);
+		
+		this.jTextField2.setText("");
+        this.jTextField2.setEditable(true);
+	}
 }

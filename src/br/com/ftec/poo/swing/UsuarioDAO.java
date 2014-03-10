@@ -30,6 +30,15 @@ public class UsuarioDAO {
     public void add(Usuario usuario){
         this.usuarios.add(usuario);
     }
+    
+    public boolean getExistePeloMenosUmUsuarioSelecionado(){
+		for (Usuario usuario : this.usuarios) {
+			if (usuario.getSelected()){
+				return true;
+			}
+		}
+		return false;
+    }
 
 	public void deletar() {
 		List<Usuario> deletar = new ArrayList<>();
