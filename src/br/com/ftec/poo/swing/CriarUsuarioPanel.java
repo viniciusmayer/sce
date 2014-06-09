@@ -2,6 +2,7 @@ package br.com.ftec.poo.swing;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 
 import javax.swing.GroupLayout;
 import javax.swing.JButton;
@@ -14,8 +15,6 @@ import javax.swing.LayoutStyle;
 
 public class CriarUsuarioPanel extends JPanel {
 
-	private static final long serialVersionUID = -1980347993255228219L;
-
 	// Variables declaration - do not modify//GEN-BEGIN:variables
 	private JTextField jTextField1;
 	private JPasswordField jTextField2;
@@ -24,9 +23,12 @@ public class CriarUsuarioPanel extends JPanel {
 	private JLabel jLabel2;
 	// End of variables declaration//GEN-END:variables
 
-	public CriarUsuarioPanel() {
-		initComponents();
-	}
+    private List<Usuario> usuarios;
+
+    public CriarUsuarioPanel(List<Usuario> usuarios) {
+        this.usuarios = usuarios;
+        initComponents();
+    }
 
 	// <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
 	private void initComponents() {
@@ -83,29 +85,29 @@ public class CriarUsuarioPanel extends JPanel {
 						.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
 	}// </editor-fold>//GEN-END:initComponents
 
-	private void jButton1ActionPerformed(ActionEvent evt) {// GEN-FIRST:event_jButton1ActionPerformed
-		String email = this.jTextField1.getText();
-		String senha = String.valueOf(this.jTextField2.getPassword());
-		
-		boolean emailValido = email != null && !email.trim().isEmpty();
-		boolean senhaValida = senha != null && !senha.isEmpty();
-		if (!emailValido || !senhaValida){
-			JOptionPane.showMessageDialog(this, "Preencha os campos email e senha.");
-			return;
-		}
+    private void jButton1ActionPerformed(ActionEvent evt) {// GEN-FIRST:event_jButton1ActionPerformed
+        String email = this.jTextField1.getText();
+        String senha = String.valueOf(this.jTextField2.getPassword());
 
-		UsuarioDAO.getInstance().add(new Usuario(email, senha));
-		JOptionPane.showMessageDialog(this, "Usuario '" + email + "' salvo com sucesso.");
-                
+        boolean emailValido = email != null && !email.trim().isEmpty();
+        boolean senhaValida = senha != null && !senha.isEmpty();
+        if (!emailValido || !senhaValida) {
+            JOptionPane.showMessageDialog(this, "Preencha os campos email e senha.");
+            return;
+        }
+
+        this.usuarios.add(new Usuario(email, senha));
+        JOptionPane.showMessageDialog(this, "Usuario '" + email + "' salvo com sucesso.");
+
         this.jTextField1.setEditable(false);
         this.jTextField2.setEditable(false);
-	}// GEN-LAST:event_jButton1ActionPerformed
-	
-	public void limparCampos(){
-		this.jTextField1.setText("");
-		this.jTextField1.setEditable(true);
-		
-		this.jTextField2.setText("");
+    }// GEN-LAST:event_jButton1ActionPerformed
+
+    public void limparCampos() {
+        this.jTextField1.setText("");
+        this.jTextField1.setEditable(true);
+
+        this.jTextField2.setText("");
         this.jTextField2.setEditable(true);
-	}
+    }
 }

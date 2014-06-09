@@ -3,19 +3,19 @@ package br.com.ftec.poo.swing;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-public class ListarUsuariosPanel extends JPanel{
+public class ListarUsuariosPanel extends JPanel {
 
-	private static final long serialVersionUID = 6630394552919411197L;
+    private static final long serialVersionUID = 6630394552919411197L;
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton2;
     private ListarUsuariosTableModel listarUsuariosTableModel;
     // End of variables declaration//GEN-END:variables
 
-	public ListarUsuariosPanel(ListarUsuariosTableModel listarUsuariosTableModel) {
-		this.listarUsuariosTableModel = listarUsuariosTableModel;
-		initComponents();
-	}
+    public ListarUsuariosPanel(ListarUsuariosTableModel listarUsuariosTableModel) {
+        this.listarUsuariosTableModel = listarUsuariosTableModel;
+        initComponents();
+    }
 
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -55,15 +55,15 @@ public class ListarUsuariosPanel extends JPanel{
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-    	if (!UsuarioDAO.getInstance().getExistePeloMenosUmUsuarioSelecionado()){
-    		JOptionPane.showMessageDialog(this, "Selecione pelo menos um usuario.");
-    		return;
-    	}   	
-    	
-    	int showConfirmDialog = JOptionPane.showConfirmDialog(this, "Confirma a exclusao do registro?", "Confirmar", JOptionPane.YES_NO_OPTION);
-        if (JOptionPane.YES_OPTION == showConfirmDialog){
-            UsuarioDAO.getInstance().deletar();
+        if (!this.listarUsuariosTableModel.getExistePeloMenosUmUsuarioSelecionado()) {
+            JOptionPane.showMessageDialog(this, "Selecione pelo menos um usuario.");
+            return;
+        }
+
+        int showConfirmDialog = JOptionPane.showConfirmDialog(this, "Confirma a exclusao do registro?", "Confirmar", JOptionPane.YES_NO_OPTION);
+        if (JOptionPane.YES_OPTION == showConfirmDialog) {
+            this.listarUsuariosTableModel.deletar();
             this.listarUsuariosTableModel.fireTableDataChanged();
-        }    	
+        }
     }//GEN-LAST:event_jButton2ActionPerformed
 }
